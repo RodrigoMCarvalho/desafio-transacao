@@ -2,6 +2,7 @@ package com.rodrigo.picpay.controller;
 
 import com.rodrigo.picpay.domain.dto.UserRequest;
 import com.rodrigo.picpay.domain.dto.UserResponse;
+import com.rodrigo.picpay.mapper.UserMapper;
 import com.rodrigo.picpay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
-        return ResponseEntity.ok(service.createUser(userRequest));
+        return ResponseEntity.ok(service.createUser(UserMapper.toUser(userRequest)));
     }
 
     @GetMapping

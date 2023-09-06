@@ -1,4 +1,4 @@
-package com.rodrigo.picpay.exception;
+package com.rodrigo.picpay.exception.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

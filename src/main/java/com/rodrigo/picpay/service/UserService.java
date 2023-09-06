@@ -1,9 +1,7 @@
 package com.rodrigo.picpay.service;
 
-import com.rodrigo.picpay.domain.entity.User;
-import com.rodrigo.picpay.domain.dto.UserRequest;
 import com.rodrigo.picpay.domain.dto.UserResponse;
-import com.rodrigo.picpay.exception.InvalidUserDataDomainException;
+import com.rodrigo.picpay.domain.entity.User;
 import com.rodrigo.picpay.mapper.UserMapper;
 import com.rodrigo.picpay.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.rodrigo.picpay.validator.UserValidator.verificarSeJaExiste;
+
 @Service
 public class UserService {
 
@@ -19,14 +19,9 @@ public class UserService {
     private UserRepository repository;
 
     @Transactional
-    public UserResponse createUser(UserRequest request) {
-        User user = UserMapper.toUser(request);
-        if(repository.findByDocument(request.document()).isPresent()) {
-            throw new InvalidUserDataDomainException("CPF já cadastrado.");
-        }
-        if(repository.findByEmail(request.email()).isPresent()) {
-            throw new InvalidUserDataDomainException("Email já cadastrado.");
-        }
+    public UserResponse createUser(User user) {
+        verificarSeJaExiste(() -> repository.findByDocument(user.getDocument()), "CPF já cadastrado.");
+        verificarSeJaExiste(() -> repository.findByEmail(user.getEmail()), "Email já cadastrado.");
         return UserMapper.toUserResponse(repository.save(user));
     }
 

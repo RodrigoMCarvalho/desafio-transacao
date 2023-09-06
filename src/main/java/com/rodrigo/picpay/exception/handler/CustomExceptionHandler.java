@@ -1,8 +1,8 @@
 package com.rodrigo.picpay.exception.handler;
 
 import com.rodrigo.picpay.exception.InvalidUserDataDomainException;
-import com.rodrigo.picpay.exception.ResponseError;
-import com.rodrigo.picpay.exception.ValidationError;
+import com.rodrigo.picpay.exception.dto.ResponseError;
+import com.rodrigo.picpay.exception.dto.ValidationError;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
