@@ -1,14 +1,17 @@
-package com.rodrigo.picpay.domain;
+package com.rodrigo.picpay.domain.entity;
 
 import com.rodrigo.picpay.domain.enums.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "TBL_USER")
-@Data
+@Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
