@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 import static com.rodrigo.picpay.mapper.TransferMapper.toTransferResponse;
-import static com.rodrigo.picpay.validator.TransferValidator.validateBalance;
-import static com.rodrigo.picpay.validator.TransferValidator.validateUserTypeForTransfer;
+import static com.rodrigo.picpay.validator.TransferValidator.*;
 
 @Service
 @AllArgsConstructor
@@ -20,12 +19,16 @@ public class TransferService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthorizerMockService authorizerMockService;
+
     public TransferResponse createTransfer(TransferRequest request) {
         User payee = userService.findById(request.payee());
         User payer = userService.findById(request.payer());
 
         validateUserTypeForTransfer(payer);
         validateBalance(request, payer);
+        checkAuthorization(authorizerMockService.getAuthorizerMock());
 
         payer.getBalance().setValue(subtractBalanceAmount(request, payer));
         payee.getBalance().setValue(addBalanceAmount(request, payee));

@@ -1,9 +1,6 @@
 package com.rodrigo.picpay.exception.handler;
 
-import com.rodrigo.picpay.exception.BusinessException;
-import com.rodrigo.picpay.exception.InvalidUserDataDomainException;
-import com.rodrigo.picpay.exception.NotAvailableBalanceException;
-import com.rodrigo.picpay.exception.NotFoundException;
+import com.rodrigo.picpay.exception.*;
 import com.rodrigo.picpay.exception.dto.ResponseError;
 import com.rodrigo.picpay.exception.dto.ValidationError;
 import jakarta.validation.ConstraintViolation;
@@ -57,6 +54,26 @@ public class CustomExceptionHandler {
         log.error("[handleNotFoundException]",ex);
         ResponseError responseError = ResponseError.builder().status(HttpStatus.NOT_FOUND.value())
                 .title("[handleNotFoundException]")
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler(ServiceUnavailableException.class)
+    public ResponseEntity<?> handleServiceUnavailableException (Exception ex) {
+        log.error("[handleServiceUnavailableException]",ex);
+        ResponseError responseError = ResponseError.builder().status(HttpStatus.SERVICE_UNAVAILABLE.value())
+                .title("[handleServiceUnavailableException]")
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler(NotAuthorizedException.class)
+    public ResponseEntity<?> handleNotAuthorizedException (Exception ex) {
+        log.error("[handleNotAuthorizedException]",ex);
+        ResponseError responseError = ResponseError.builder().status(HttpStatus.UNAUTHORIZED.value())
+                .title("[handleNotAuthorizedException]")
                 .message(ex.getMessage())
                 .build();
         return ResponseEntity.badRequest().body(responseError);
