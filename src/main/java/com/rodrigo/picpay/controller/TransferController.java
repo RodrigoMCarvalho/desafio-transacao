@@ -20,8 +20,8 @@ public class TransferController {
     private TransferService transferService;
 
     @PostMapping
-    public ResponseEntity<TransferResponse> createTransfer(@RequestBody TransferRequest request) {
-        return ResponseEntity.ok(transferService.createTransfer(request));
+    public ResponseEntity<TransferResponse> makeTransfer(@RequestBody TransferRequest request) {
+        return ResponseEntity.ok(transferService.makeTransfer(request));
     }
 }
 

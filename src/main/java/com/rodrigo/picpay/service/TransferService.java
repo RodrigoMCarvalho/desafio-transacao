@@ -22,7 +22,7 @@ public class TransferService {
     @Autowired
     private AuthorizerMockService authorizerMockService;
 
-    public TransferResponse createTransfer(TransferRequest request) {
+    public TransferResponse makeTransfer(TransferRequest request) {
         User payee = userService.findById(request.payee());
         User payer = userService.findById(request.payer());
 
