@@ -16,7 +16,7 @@ public class TransferValidator {
 
     public static void validateBalance(TransferRequest request, User payer) {
         if(payer.getBalance().getValue().compareTo(request.value()) < 0) {
-            throw new NotAvailableBalanceException("Sem saldo disponível");
+            throw new NotAvailableBalanceException("Saldo insuficiente.");
         }
     }
 
@@ -28,7 +28,7 @@ public class TransferValidator {
 
     public static void checkAuthorization(AuthorizerMockResponse authorizerMockResponse) {
         if(!Objects.equals(authorizerMockResponse.message(), "Autorizado")) {
-            throw new NotAuthorizedException("Não autorizado");
+            throw new NotAuthorizedException("Não autorizado.");
         }
     }
 }
