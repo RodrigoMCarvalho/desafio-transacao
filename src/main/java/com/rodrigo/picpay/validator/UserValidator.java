@@ -9,9 +9,9 @@ import java.util.function.Supplier;
 @UtilityClass
 public class UserValidator {
 
-    public static void verificarSeJaExiste(Supplier<Optional<?>> supplier, String mensagemErro) {
+    public static void checkIfResourceExists(Supplier<Optional<?>> supplier, String errorMsg) {
         supplier.get().ifPresent(
-                result -> { throw new InvalidUserDataDomainException(mensagemErro);
+                result -> { throw new InvalidUserDataDomainException(errorMsg);
         });
     }
 

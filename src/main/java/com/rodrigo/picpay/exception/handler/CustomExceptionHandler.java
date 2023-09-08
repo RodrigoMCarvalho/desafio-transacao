@@ -1,6 +1,9 @@
 package com.rodrigo.picpay.exception.handler;
 
+import com.rodrigo.picpay.exception.BusinessException;
 import com.rodrigo.picpay.exception.InvalidUserDataDomainException;
+import com.rodrigo.picpay.exception.NotAvailableBalanceException;
+import com.rodrigo.picpay.exception.NotFoundException;
 import com.rodrigo.picpay.exception.dto.ResponseError;
 import com.rodrigo.picpay.exception.dto.ValidationError;
 import jakarta.validation.ConstraintViolation;
@@ -24,6 +27,36 @@ public class CustomExceptionHandler {
         log.error("[handleInvalidUserDataDomainException]",ex);
         ResponseError responseError = ResponseError.builder().status(HttpStatus.BAD_REQUEST.value())
                 .title("[handleInvalidUserDataDomainException]")
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<?> handleBusinessException (Exception ex) {
+        log.error("[handleBusinessException]",ex);
+        ResponseError responseError = ResponseError.builder().status(HttpStatus.BAD_REQUEST.value())
+                .title("[handleBusinessException]")
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler(NotAvailableBalanceException.class)
+    public ResponseEntity<?> handleNotAvailableBalanceException (Exception ex) {
+        log.error("[handleNotAvailableBalanceException]",ex);
+        ResponseError responseError = ResponseError.builder().status(HttpStatus.BAD_REQUEST.value())
+                .title("[handleNotAvailableBalanceException]")
+                .message(ex.getMessage())
+                .build();
+        return ResponseEntity.badRequest().body(responseError);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleNotFoundException (Exception ex) {
+        log.error("[handleNotFoundException]",ex);
+        ResponseError responseError = ResponseError.builder().status(HttpStatus.NOT_FOUND.value())
+                .title("[handleNotFoundException]")
                 .message(ex.getMessage())
                 .build();
         return ResponseEntity.badRequest().body(responseError);
