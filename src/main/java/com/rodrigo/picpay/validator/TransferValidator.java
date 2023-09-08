@@ -1,6 +1,6 @@
 package com.rodrigo.picpay.validator;
 
-import com.rodrigo.picpay.domain.dto.AuthorizerMock;
+import com.rodrigo.picpay.domain.dto.AuthorizerMockResponse;
 import com.rodrigo.picpay.domain.dto.TransferRequest;
 import com.rodrigo.picpay.domain.entity.User;
 import com.rodrigo.picpay.domain.enums.UserType;
@@ -26,8 +26,8 @@ public class TransferValidator {
         }
     }
 
-    public static void checkAuthorization(AuthorizerMock authorizerMock) {
-        if(!Objects.equals(authorizerMock.message(), "Autorizado")) {
+    public static void checkAuthorization(AuthorizerMockResponse authorizerMockResponse) {
+        if(!Objects.equals(authorizerMockResponse.message(), "Autorizado")) {
             throw new NotAuthorizedException("Não autorizado");
         }
     }
